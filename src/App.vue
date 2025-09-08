@@ -140,7 +140,7 @@ onMounted(() => {
     <div v-else>
       <p>Загрузка...</p>
     </div>
-    <div class="game-info">
+    <div class="game-info" v-if="!winner">
       <div class="liquidGlass-effect"></div>
       <div class="liquidGlass-tint"></div>
       <div class="liquidGlass-shine"></div>
