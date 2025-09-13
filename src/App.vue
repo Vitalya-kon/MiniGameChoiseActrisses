@@ -122,37 +122,37 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="game-container">
-    <div v-if="winner" class="winner">
-      <h2>Победитель:</h2>
-      <img :src="winner.image" :alt="winner.name" />
+  <div class="game-container text-center h-[100vh] relative w-[100vw] flex justify-center flex-col">
+    <div v-if="winner" class="mt-8 flex flex-col md:w-[22vw] w-[70vw] mx-auto">
+      <h2 class="text-[#4CAF50] text-3xl">Победитель:</h2>
+      <img class="w-[300px] h-[450px] object-cover rounded-sm my-5 mx-0 shadow-lg" :src="winner.image" :alt="winner.name" />
       <p>{{ winner.name }}</p>
-      <button @click="restartGame">Начать заново</button>
+      <button class="px-6 py-3 text-lg mt-5 cursor-pointer bg-[#4CAF50] text-white border-none rounded transition-colors duration-300 hover:text-[#45a049]" @click="restartGame">Начать заново</button>
     </div>
 
-    <div v-else-if="currentPair" class="cards-container">
-      <div v-for="actress in currentPair" :key="actress.id" class="card" @click="selectActress(actress)">
-        <img :src="actress.image" :alt="actress.name" />
-        <p>{{ actress.name }}</p>
+    <div v-else-if="currentPair" class="flex justify-center md:gap-[18vw] gap-[5vw] absolute top-5 bottom-20 left-0 right-0 max-w-[75vw] my-0 mx-auto md:flex-row flex-col md:items-start items-center md:h-auto h-[80vh]">
+      <div v-for="actress in currentPair" :key="actress.id" class="cursor-pointer border-2 border-white p-2.5 transition-all md:w-[45vw] w-[60vw] md:h-full h-[38vh] rounded-xl hover:scale-[1.05] hover:border-[#4CAF50] hover:shadow-md relative" @click="selectActress(actress)">
+        <img class="w-full h-full object-cover rounded-sm" :src="actress.image" :alt="actress.name" />
+        <p class="md:mt-2.5 md:0 w-full md:static absolute bottom-0 left-0 md:bg-transparent bg-gray-500 text-lg font-bold rounded-lg">{{ actress.name }}</p>
       </div>
     </div>
 
     <div v-else>
       <p>Загрузка...</p>
     </div>
-    <div class="game-info" v-if="!winner">
-      <div class="liquidGlass-effect"></div>
-      <div class="liquidGlass-tint"></div>
-      <div class="liquidGlass-shine"></div>
+    <div class="p-2.5 md:rounded-lg rounded-none z-10 md:relative text-white md:w-[15vw] my-0 mx-auto absolute bottom-0 left-0 w-full" v-if="!winner">
+      <div class="liquidGlass-effect absolute z-0 inset-0 backdrop-blur-sm overflow-hidden isolate md:rounded-3xl rounded-none"></div>
+      <div class="liquidGlass-tint z-10 absolute inset-0 bg-white/7 md:rounded-3xl rounded-none"></div>
+      <div class="liquidGlass-shine absolute inset-0 z-20 overflow-hidden md:rounded-3xl rounded-none [box-shadow:inset_2px_2px_1px_0_rgb(255_255_255_/_8%),inset_-1px_-1px_1px_1px_rgb(255_255_255_/_9%)]"></div>
 
-      <div style="z-index: 2;position: relative;">
-        <p>Раунд: {{ round }}</p>
-        <p>Пара: {{ currentPairIndex }} из {{ totalPairsInRound }}</p>
-        <p>Осталось актрис: {{ allActresses.length }}</p>
+      <div class="z-20 relative ">
+        <p class="text-white font-bold my-1">Раунд: {{ round }}</p>
+        <p class="text-white font-bold my-1">Пара: {{ currentPairIndex }} из {{ totalPairsInRound }}</p>
+        <p class="text-white font-bold my-1">Осталось актрис: {{ allActresses.length }}</p>
       </div>
 
     </div>
-    <svg style="display: none">
+    <svg class="hidden">
       <filter id="glass-distortion" x="0%" y="0%" width="100%" height="100%" filterUnits="objectBoundingBox">
         <feTurbulence type="fractalNoise" baseFrequency="0.01 0.01" numOctaves="1" seed="5" result="turbulence" />
         <!-- Seeds: 14, 17,  -->
@@ -181,140 +181,9 @@ onMounted(() => {
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 .liquidGlass-effect {
-  position: absolute;
-  z-index: 0;
-  inset: 0;
-  backdrop-filter: blur(3px);
   filter: url(#glass-distortion);
-  overflow: hidden;
-  isolation: isolate;
-  border-radius: 1.5rem;
 }
-
-.liquidGlass-tint {
-  z-index: 1;
-  position: absolute;
-  inset: 0;
-  background: rgba(255, 255, 255, 7%);
-  border-radius: 1.5rem;
-}
-
-.liquidGlass-shine {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  overflow: hidden;
-  box-shadow: inset 2px 2px 1px 0 rgb(255 255 255 / 8%), inset -1px -1px 1px 1px rgb(255 255 255 / 9%);
-  border-radius: 1.5rem;
-}
-
 .game-container {
   font-family: "Montserrat", sans-serif;
-  /* max-width: 800px;
-  margin: 0 auto; */
-  text-align: center;
-  /* padding: 20px; */
-  height: 100vh;
-  position: relative;
-  width: 100vw;
-  display: flex;
-  justify-content: center;;
-  flex-direction: column;
 }
-
-.game-info {
-  /* margin-top: 20px; */
-  padding: 10px;
-  border-radius: 8px;
-  z-index: 1;
-  position: relative;
-  bottom: 0vh;
-  /* background: #f97fffd9; */
-  color: #fff;
-  width: 15vw;
-  margin: 0 auto;
-}
-
-.game-info p {
-  margin: 5px 0;
-  font-weight: bold;
-  color: #fff;
-}
-
-.cards-container {
-  display: flex;
-  justify-content: center;
-  gap: 18vw;
-  position: absolute;
-  top: 20px;
-  bottom: 70px;
-  left: 0;
-  right: 0;
-  max-width: 75vw;
-  margin: 0 auto;
-}
-
-.card {
-  cursor: pointer;
-  border: 2px solid #ddd;
-  border-radius: 10px;
-  padding: 10px;
-  transition: all 0.3s ease;
-  width: 45vw;
-}
-
-.card:hover {
-  transform: scale(1.05);
-  border-color: #4CAF50;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 5px;
-}
-
-.card p {
-  margin-top: 10px;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.winner {
-  margin-top: 30px;
-}
-
-.winner img {
-  width: 300px;
-  height: 450px;
-  object-fit: cover;
-  border-radius: 10px;
-  margin: 20px 0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.winner h2 {
-  color: #4CAF50;
-  font-size: 28px;
-}
-
-button {
-  padding: 12px 24px;
-  font-size: 18px;
-  margin-top: 20px;
-  cursor: pointer;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  transition: background-color 0.3s;
-}
-
-button:hover {
-  background-color: #45a049;
-}
-
-@media screen {}
 </style>
