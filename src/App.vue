@@ -130,8 +130,8 @@ onMounted(() => {
       <button class="px-6 py-3 text-lg mt-5 cursor-pointer bg-[#4CAF50] text-white border-none rounded transition-colors duration-300 hover:text-[#45a049]" @click="restartGame">Начать заново</button>
     </div>
 
-    <div v-else-if="currentPair" class="flex justify-center md:gap-[18vw] gap-[5vw] absolute top-5 bottom-20 left-0 right-0 max-w-[75vw] my-0 mx-auto md:flex-row flex-col md:items-start items-center md:h-auto h-[80vh]">
-      <div v-for="actress in currentPair" :key="actress.id" class="cursor-pointer border-2 border-white p-2.5 transition-all md:w-[45vw] w-[60vw] md:h-full h-[38vh] rounded-xl hover:scale-[1.05] hover:border-[#4CAF50] hover:shadow-md relative" @click="selectActress(actress)">
+    <div v-else-if="currentPair" class="flex justify-center md:gap-[18vw] gap-[5vw] absolute top-5 bottom-20 left-0 right-0 max-w-[75vw] my-0 mx-auto md:flex-row flex-col md:items-start items-center md:h-auto h-[80dvh]">
+      <div v-for="actress in currentPair" :key="actress.id" class="cursor-pointer border-2 border-white p-2.5 transition-all md:w-[45vw] w-[60vw] md:h-full h-[38dvh] rounded-xl hover:scale-[1.05] hover:border-[#4CAF50] hover:shadow-md relative" @click="selectActress(actress)">
         <img class="w-full h-full object-cover rounded-sm" :src="actress.image" :alt="actress.name" />
         <p class="md:mt-2.5 md:0 w-full md:static absolute bottom-0 left-0 md:bg-transparent bg-gray-500 text-lg font-bold rounded-lg">{{ actress.name }}</p>
       </div>
